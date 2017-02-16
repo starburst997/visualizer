@@ -12,7 +12,7 @@ The page can be run directly from disk.
 
 ## Usage
 
-Once the page is up, allow it to access microphone/line-in input. Use 1-9 to select a visualization, and the += key to switch between variants of that visualization.
+Once the page is up, allow it to access microphone/line-in input. Use 1-9 to select a visualization (or click/tap to go to the next one), and the += key to switch between variants of that visualization.
 
 On OS X you can use [Soundflower](http://rogueamoeba.com/freebies/soundflower/) to redirect system audio, and on Windows you can use [VB Cable](http://vb-audio.pagesperso-orange.fr/Cable/).
 

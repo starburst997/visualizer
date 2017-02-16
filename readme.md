@@ -6,9 +6,9 @@ A HTML5 audio visualizer for microphone or line-in input.
 
 ## Requirements
 
-Chrome or Firefox is required, though Chrome is much faster in general due to more GPU acceleration.
+A modern browser like Chrome, Firefox, or Edge is required, though Chrome will likely be fastest.
 
-Because it uses certain HTML5 APIs, this page cannot be run directly from disk and must be run from a web server, even though it is completely static.
+The page can be run directly from disk.
 
 ## Usage
 

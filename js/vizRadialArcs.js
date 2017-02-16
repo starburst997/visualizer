@@ -18,6 +18,7 @@ VizRadialArcs.prototype.vary = function(variant) {
 VizRadialArcs.prototype.resize = function() {}
 
 VizRadialArcs.prototype.draw = function(spectrum) {
+  ctx.save();
   ctx.clearRect(0, 0, cv.width, cv.height)
   ctx.translate(cv.width / 2, cv.height / 2);
   ctx.rotate(allRotate);
@@ -47,4 +48,5 @@ VizRadialArcs.prototype.draw = function(spectrum) {
   ctx.fill();
   ctx.closePath();
   allRotate += 0.002;
+  ctx.restore();
 }

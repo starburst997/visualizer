@@ -40,18 +40,6 @@ function VizSunburst(variant) {
 
   this.vary(variant);
 
-  /*cv.width = 200;
-  cv.height = 200;
-  ctx = cv.getContext("2d");
-  ctx.clearRect(0, 0, cv.width, cv.height)
-  var grd = ctx.createRadialGradient(100, 100, 10, 100, 100, 100);
-  grd.addColorStop(0,"#aaaaaa");
-  grd.addColorStop(1,"#000000");
-  ctx.fillStyle = grd;
-  ctx.fillRect(0, 0, 200, 200);
-  var src = cv.toDataURL();
-  this.particleImage = new Image();
-  this.particleImage.src = src;*/
   this.particleImage = document.getElementById("particleImage");
   
   this.particles = [];
@@ -63,15 +51,12 @@ function VizSunburst(variant) {
 VizSunburst.prototype.resize = function() {}
 
 VizSunburst.prototype.vary = function(variant) {
-  // blending is horrifically slow on Firefox, so skip that variant
-  if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-    variant = 1;
-  }
   this.variant = variant;
   this.clouds = this.variants[variant][0];
 }
 
-VizSunburst.prototype.draw = function(array) {
+VizSunburst.prototype.draw = function(spectrum) {
+  ctx.save();
   ctx.fillStyle = "#000000";
   ctx.fillRect(0, 0, cv.width, cv.height);
   ctx.translate(cv.width / 2, cv.height / 2);
@@ -95,7 +80,7 @@ VizSunburst.prototype.draw = function(array) {
   for (var i = 0; i < bandCount; i++) {
     ctx.rotate(rotateAmount);
     var hue = Math.floor(360.0 / bandCount * i) % 360;
-    var brightness = constrain(Math.floor(array[i] / 2), 10, 99);
+    var brightness = constrain(Math.floor(spectrum[i] / 2), 10, 99);
     ctx.fillStyle = bigColorMap[hue * 100 + brightness];
     ctx.beginPath();
     ctx.arc(0, 0, longestSide * 1.5, 0, rotateAmount + 0.1);
@@ -104,4 +89,5 @@ VizSunburst.prototype.draw = function(array) {
     ctx.closePath();
   }
   allRotate += 0.002;
+  ctx.restore();
 }

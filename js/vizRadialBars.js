@@ -16,7 +16,8 @@ VizRadialBars.prototype.vary = function(variant) {
   this.fade = this.variants[variant][0];
 }
 
-VizRadialBars.prototype.draw = function(array) {
+VizRadialBars.prototype.draw = function(spectrum) {
+  ctx.save();
   ctx.clearRect(0, 0, cv.width, cv.height)
   ctx.translate(cv.width / 2, cv.height / 2);
   ctx.rotate(allRotate);
@@ -27,16 +28,17 @@ VizRadialBars.prototype.draw = function(array) {
       var brightness = constrain(Math.floor(spectrum[i] / 1.5), 25, 99); 
       ctx.fillStyle = bigColorMap[hue * 100 + brightness];
       ctx.fillRect(-bandWidth / 2, centerRadius, bandWidth,
-        Math.max(2, array[i] * heightMultiplier));
+        Math.max(2, spectrum[i] * heightMultiplier));
     } else {
       var avg = 0;
-      avg = (array[i] + lastVolumes[i]) / 2;
+      avg = (spectrum[i] + lastVolumes[i]) / 2;
       ctx.fillStyle = bigColorMap[hue * 100 + 50];
       ctx.fillRect(-bandWidth / 2, centerRadius + avg, bandWidth, 2);
       ctx.fillStyle = bigColorMap[hue * 100 + 99];
       ctx.fillRect(-bandWidth / 2, centerRadius, bandWidth,
-        array[i] * heightMultiplier);
+        spectrum[i] * heightMultiplier);
     }
   }
   allRotate += 0.002;
+  ctx.restore();
 }

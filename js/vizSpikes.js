@@ -10,7 +10,8 @@ function VizSpikes() {
 
 VizSpikes.prototype.resize = function() {}
 
-VizSpikes.prototype.draw = function(array) {
+VizSpikes.prototype.draw = function(spectrum) {
+  ctx.save();
   this.hueOffset += 1;
   ctx.clearRect(0, 0, cv.width, cv.height);
   ctx.translate(cv.width / 2, cv.height / 2);
@@ -18,11 +19,11 @@ VizSpikes.prototype.draw = function(array) {
   
   for (var i = 0; i < bandCount; i++) {
     var hue = Math.floor(360.0 / bandCount * i + this.hueOffset) % 360;
-    var brightness = constrain(Math.floor(array[i] / 1.5), 15, 99);
+    var brightness = constrain(Math.floor(spectrum[i] / 1.5), 15, 99);
     ctx.fillStyle = bigColorMap[hue * 100 + brightness];
 
     var inner = shortestSide / 2;
-    inner = inner - (inner - centerRadius) * (array[i] / 255);
+    inner = inner - (inner - centerRadius) * (spectrum[i] / 255);
     ctx.beginPath();
     ctx.arc(0, 0, hypotenuse / 2, -rotateAmount / 2, rotateAmount / 2);
     ctx.lineTo(inner, 0);
@@ -31,4 +32,5 @@ VizSpikes.prototype.draw = function(array) {
     ctx.rotate(rotateAmount);
   }
   //allRotate += 0.002;
+  ctx.restore();
 }

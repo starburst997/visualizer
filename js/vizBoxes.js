@@ -17,9 +17,10 @@ VizBoxes.prototype.vary = function(variant) {
   this.grow = this.variants[variant][0];
 }
 
-VizBoxes.prototype.draw = function(array) {
+VizBoxes.prototype.draw = function(spectrum) {
+  ctx.save();
   this.hueOffset += 0.25;
-  //array = reduceBuckets(array, 81);
+  //spectrum = reduceBuckets(spectrum, 81);
   ctx.clearRect(0, 0, cv.width, cv.height);
 
   var size = 11;
@@ -45,11 +46,11 @@ VizBoxes.prototype.draw = function(array) {
     for (var j = 0; j < Math.floor(loop / 2) + 1; j++) {
       //console.log(i + ": [" + x + "," + y + "] " + (loop / 2 + 1));
       var hue = Math.floor(360.0 / (size * size) * i + this.hueOffset) % 360;
-      var brightness = constrain(Math.floor(array[i] / 1.5), 10, 99);
+      var brightness = constrain(Math.floor(spectrum[i] / 1.5), 10, 99);
       ctx.fillStyle = bigColorMap[hue * 100 + brightness];
       var intensity = 0.9;
       if (this.grow) {
-        intensity = array[i] / 255 / 4 + 0.65;
+        intensity = spectrum[i] / 255 / 4 + 0.65;
         //intensity = constrain(intensity, 0.1, 0.9);
       }
       ctx.fillRect(x * cw + cw / 2 * (1 - intensity),
@@ -61,4 +62,5 @@ VizBoxes.prototype.draw = function(array) {
     }
     loop++;
   }
+  ctx.restore();
 }

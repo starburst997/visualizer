@@ -8,7 +8,9 @@ A HTML5 audio visualizer for microphone or line-in input.
 
 A modern browser like Chrome, Firefox, or Edge is required, though Chrome will likely be fastest.
 
-The page can be run directly from disk.
+The page can be run directly from disk. You can also put it on a web server, but it must be served over HTTPS due to browser security restrictions. So it's easiest just to download the repository and run `index.html`.
+
+There's also a Node.js-modularized version by Mike Reinstein which can be more easily incorporated into Node.js projects, [available here](https://github.com/mreinstein/visualizer).
 
 ## Usage
 
